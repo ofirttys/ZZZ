@@ -1,0 +1,28 @@
+/* Base styles for form elements */
+input[type="time"],
+input[type="number"] {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm;
+  @apply focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
+}
+
+/* Fix for time input appearance */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  @apply cursor-pointer;
+}
+
+/* Additional form styling */
+input[type="time"],
+input[type="number"] {
+  @apply appearance-none;
+  @apply bg-white;
+}
+
+/* Ensure proper text color */
+input {
+  @apply text-gray-900;
+}
+
+/* Improve button transitions */
+button {
+  @apply transition-all duration-200 ease-in-out;
+}
