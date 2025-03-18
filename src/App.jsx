@@ -75,10 +75,29 @@ function App() {
             <input
               type="number"
               id="periods"
-              min="2"
+              inputMode="numeric"
+              pattern="[0-9]*"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               value={periods}
-              onChange={(e) => setPeriods(Math.max(2, parseInt(e.target.value) || 2))}
+              onChange={(e) => {
+                const value = e.target.value;
+                // Allow empty string for clearing the input
+                if (value === '') {
+                  setPeriods('');
+                } else {
+                  const parsedValue = parseInt(value);
+                  // Only set if it's a valid number
+                  if (!isNaN(parsedValue)) {
+                    setPeriods(parsedValue);
+                  }
+                }
+              }}
+              onBlur={() => {
+                // When the field loses focus, ensure the value is at least 2
+                if (periods === '' || periods < 2) {
+                  setPeriods(2);
+                }
+              }}
             />
           </div>
 
