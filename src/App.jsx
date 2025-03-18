@@ -6,11 +6,11 @@ import './index.css';
 function App() {
   const [startTime, setStartTime] = useState('10:00');
   const [endTime, setEndTime] = useState('13:00');
-  const [periods, setPeriods] = useState(3);
-  const [timePeriods, setTimePeriods] = useState([]);
+  const [chunks, setChunks] = useState(3);
+  const [timeChunks, setTimeChunks] = useState([]);
   const [error, setError] = useState('');
 
-  const calculatePeriods = () => {
+  const calculateChunks = () => {
     try {
       const baseDate = new Date();
       let start = parse(startTime, 'HH:mm', baseDate);
@@ -21,15 +21,15 @@ function App() {
       }
 
       const timeDiff = end.getTime() - start.getTime();
-      const periodSize = timeDiff / periods;
+      const chunkSize = timeDiff / chunks;
 
-      const newPeriods = [];
-      for (let i = 0; i < periods; i++) {
-        const periodTime = new Date(start.getTime() + (periodSize * i));
-        newPeriods.push(format(periodTime, 'HH:mm'));
+      const newChunks = [];
+      for (let i = 0; i < chunks; i++) {
+        const chunkTime = new Date(start.getTime() + (chunkSize * i));
+        newChunks.push(format(chunkTime, 'HH:mm'));
       }
 
-      setTimePeriods(newPeriods);
+      setTimeChunks(newChunks);
       setError('');
     } catch (err) {
       setError('Please enter valid times in HH:mm format');
@@ -69,35 +69,35 @@ function App() {
           </div>
 
           <div>
-            <label htmlFor="periods" className="block text-sm font-medium text-gray-700 mb-1">
-              Number of Periods
+            <label htmlFor="chunks" className="block text-sm font-medium text-gray-700 mb-1">
+              Number of Chunks
             </label>
             <input
               type="number"
-              id="periods"
+              id="chunks"
               min="2"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              value={periods}
-              onChange={(e) => setPeriods(Math.max(2, parseInt(e.target.value) || 2))}
+              value={chunks}
+              onChange={(e) => setChunks(Math.max(2, parseInt(e.target.value) || 2))}
             />
           </div>
 
           <button
-            onClick={calculatePeriods}
+            onClick={calculateChunks}
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
           >
-            Calculate Periods
+            Calculate Chunks
           </button>
 
           {error && <p className="text-red-600">{error}</p>}
 
-          {timePeriods.length > 0 && (
+          {timeChunks.length > 0 && (
             <div className="mt-6">
               <h2 className="text-xl font-semibold mb-3">Results:</h2>
               <div className="space-y-2">
-                {timePeriods.map((time, index) => (
+                {timeChunks.map((time, index) => (
                   <div key={index} className="flex justify-between bg-gray-50 p-3 rounded-md">
-                    <span className="font-medium">Period {index + 1}:</span>
+                    <span className="font-medium">Chunk {index + 1}:</span>
                     <span>{time}</span>
                   </div>
                 ))}
