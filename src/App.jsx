@@ -37,7 +37,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen p-6" style={{
+		backgroundImage: "url('/sheets.jpg')", 
+		backgroundSize: "cover",
+		backgroundPosition: "center"
+	}}>
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-6">
         <h1 className="text-2xl font-bold mb-6">Time Period Splitter</h1>
         
