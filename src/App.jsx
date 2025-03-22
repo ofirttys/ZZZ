@@ -27,7 +27,7 @@ function App() {
       const newPeriods = [];
       for (let i = 0; i < periods; i++) {
         const periodStart = new Date(start.getTime() + (periodSize * i));
-        const periodEnd = i === period - 1
+        const periodEnd = i === periods - 1
 		  ? end // Make sure the last chunk ends exactly at the end time
 		  : new Date(start.getTime() + (periodSize * (i + 1)));
 
