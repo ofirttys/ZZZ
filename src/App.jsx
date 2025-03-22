@@ -16,6 +16,7 @@ function App() {
       let start = parse(startTime, 'HH:mm', baseDate);
       let end = parse(endTime, 'HH:mm', baseDate);
 
+      // Handle cases where end time is earlier than start time (next day)
       if (isAfter(start, end)) {
         end = addHours(end, 24);
       }
@@ -25,13 +26,21 @@ function App() {
 
       const newPeriods = [];
       for (let i = 0; i < periods; i++) {
-        const periodTime = new Date(start.getTime() + (periodSize * i));
-        newPeriods.push(format(periodTime, 'HH:mm'));
+        const periodStart = new Date(start.getTime() + (periodSize * i));
+        const periodEnd = i === period - 1
+		  ? end // Make sure the last chunk ends exactly at the end time
+		  : new Date(start.getTime() + (periodSize * (i + 1)));
+
+        newPeriods.push({
+		  start: format(periodStart, 'HH:mm'),
+		  end: format(periodEnd, 'HH:mm')
+		});
       }
 
       setTimePeriods(newPeriods);
       setError('');
     } catch (err) {
+      console.error(err);
       setError('Please enter valid times in HH:mm format');
     }
   };
@@ -42,7 +51,7 @@ function App() {
 		backgroundSize: "cover",
 		backgroundPosition: "center"
 	}}>
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-6">
+      <div className="max-w-md mx-auto bg-white bg-opacity-90 rounded-xl shadow-md p-6">
         <h1 className="text-2xl font-bold mb-6">Time Period Splitter</h1>
         
         <div className="space-y-4">
@@ -118,10 +127,10 @@ function App() {
             <div className="mt-6">
               <h2 className="text-xl font-semibold mb-3">Results:</h2>
               <div className="space-y-2">
-                {timePeriods.map((time, index) => (
+                {timePeriods.map((period, index) => (
                   <div key={index} className="flex justify-between bg-gray-50 p-3 rounded-md">
                     <span className="font-medium">Period {index + 1}:</span>
-                    <span>{time}</span>
+                    <span>{period.start} - {period.end}</span>
                   </div>
                 ))}
               </div>
