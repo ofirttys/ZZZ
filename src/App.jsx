@@ -4,8 +4,8 @@ import './App.css';
 import './index.css';
 
 function App() {
-  const [startTime, setStartTime] = useState('10:00');
-  const [endTime, setEndTime] = useState('13:00');
+  const [startTime, setStartTime] = useState('20:00');
+  const [endTime, setEndTime] = useState('23:30');
   const [periods, setPeriods] = useState(3);
   const [timePeriods, setTimePeriods] = useState([]);
   const [error, setError] = useState('');
