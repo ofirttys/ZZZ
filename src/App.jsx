@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div className="min-h-screen p-6" style={{
-		backgroundImage: "url('/sheets.jpg')", 
+		backgroundImage: "url('/bg.jpg')", 
 		backgroundSize: "cover",
 		backgroundPosition: "center"
 	}}>
